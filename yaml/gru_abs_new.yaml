@@ -1,0 +1,39 @@
+dataset_class: gru_dataset
+model_class: gru
+architecture:
+    dropout: 0
+    input_numerical_size: 16
+    numeraical_linear_size: 64
+    model_size: 32
+    linear_out: 16
+    out_size: 2
+    num_layers_gru: 4
+    num_features: ['hmin_onset','hmin_wakeup','anglez_equal1',
+                   'anglez_equal2','anglez_std_norm','enmo_std_norm','noise_removal','fe__check_c','porc_step','group_len_c_norm']
+    col_minute: []
+dataset:
+    fold: [0]
+    train_name: features_basic_train
+    valid_name: features_basic_test
+environment:
+    mixed_precision: false
+    number_of_workers: 4
+    seed: -1
+experiment_name: gru_abs_new
+training:
+    batch_size: 14
+    differential_learning_rate: 0.0001
+    differential_learning_rate_layers:
+    - head
+    drop_last_batch: true
+    epochs: 25
+    grad_accumulation: 9
+    gradient_clip: 0
+    learning_rate: 0.015
+    optimizer: AdamW
+    schedule: Linear
+    warmup_epochs: 0.005
+    weight_decay: 0.05
+    checkpoint: false
+validation:
+    batch_size: 64

@@ -1,0 +1,40 @@
+dataset_class: gru_dataset
+model_class: unet
+architecture:
+    dropout: 0
+    input_numerical_size: 16
+    numeraical_linear_size: 64
+    model_size: 32
+    linear_out: 16
+    out_size: 2
+    num_layers_gru: 4
+    num_features: ['hmin_onset','hmin_wakeup','anglez_equal1',
+                   'anglez_equal2',
+                   'anglez_std_norm','enmo_std_norm','noise_removal']
+    col_minute: []
+dataset:
+    fold: [0]
+    train_name: features_basic_train
+    valid_name: features_basic_test
+environment:
+    mixed_precision: false
+    number_of_workers: 4
+    seed: -1
+experiment_name: unet_abs
+training:
+    batch_size: 10
+    differential_learning_rate: 0.0005
+    differential_learning_rate_layers:
+    - head
+    drop_last_batch: true
+    epochs: 20
+    grad_accumulation: 9
+    gradient_clip: 0
+    learning_rate: 0.003
+    optimizer: AdamW
+    schedule: Cosine
+    warmup_epochs: 0.005
+    weight_decay: 0.002
+    checkpoint: false
+validation:
+    batch_size: 64
